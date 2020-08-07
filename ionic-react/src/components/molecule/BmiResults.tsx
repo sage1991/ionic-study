@@ -11,8 +11,9 @@ const BmiResults: FC<BmiResultsProps> = (props) => {
             props.results.map((bmi, index) => {
               return (
                 <IonCard key={index}>
-                  <IonCardContent>
-                    <h3>{ bmi }</h3>
+                  <IonCardContent className="ion-text-center">
+                    <h6>Your Body-Mass-Index</h6>
+                    <h2>{ bmi }</h2>
                   </IonCardContent>
                 </IonCard>
               );

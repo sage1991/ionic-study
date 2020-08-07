@@ -7,8 +7,8 @@ import { Contents } from "../components/organism/Contents";
 const Home: FC = () => {
   return (
     <Fragment>
-      <Header></Header>
-      <Contents></Contents>
+      <Header />
+      <Contents />
     </Fragment>
   );
 }
