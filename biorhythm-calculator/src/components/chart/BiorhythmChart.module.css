@@ -1,0 +1,12 @@
+
+.emotional path {
+  stroke: var(--app-emotional-color);
+}
+
+.intellectual path {
+  stroke: var(--app-intellectual-color);
+}
+
+.physical path {
+  stroke: var(--app-physical-color);
+}

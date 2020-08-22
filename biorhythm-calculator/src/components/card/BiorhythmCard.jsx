@@ -3,6 +3,7 @@ import { IonCard, IonCardHeader, IonCardTitle, IonCardContent } from "@ionic/rea
 import { BiorhythmCalculator } from "../../utils/BiorhythmCalculator"
 import { BiorhythmChart } from "../chart/BiorhythmChart";
 import { DateUtils } from "../../utils/DateUtils";
+import css from "./BiorhythmCard.module.css";
 
 const BiorhythmCard = (props) => {
   const { targetDay, birthDay } = props;
@@ -15,9 +16,9 @@ const BiorhythmCard = (props) => {
       </IonCardHeader>
       <IonCardContent>
         <BiorhythmChart birthDate={birthDay} endDate={targetDay} />
-        <p>physical: { physical.toFixed(4) }</p>
-        <p>emotional: { emotional.toFixed(4) }</p>
-        <p>intellectual: { intellectual.toFixed(4) }</p>
+        <p className={css.physical}>physical: { physical.toFixed(4) }</p>
+        <p className={css.emotional}>emotional: { emotional.toFixed(4) }</p>
+        <p className={css.intellectual}>intellectual: { intellectual.toFixed(4) }</p>
       </IonCardContent>
     </IonCard>
   );

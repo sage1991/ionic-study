@@ -1,0 +1,12 @@
+
+.emotional {
+  color: var(--app-emotional-color);
+}
+
+.intellectual {
+  color: var(--app-intellectual-color);
+}
+
+.physical {
+  color: var(--app-physical-color);
+}

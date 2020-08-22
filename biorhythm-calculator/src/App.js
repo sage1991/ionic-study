@@ -17,7 +17,7 @@ const App = () => {
   return (
     <IonApp>
       <IonHeader>
-        <IonToolbar>
+        <IonToolbar color="primary">
           <IonTitle>Biorhythm</IonTitle>
         </IonToolbar>
       </IonHeader>

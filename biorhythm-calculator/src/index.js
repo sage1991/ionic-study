@@ -1,3 +1,5 @@
+import { Plugins } from "@capacitor/core";
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { App } from './App';
@@ -19,6 +21,11 @@ import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 
+import "./index.css";
 
 ReactDOM.render(<App />, document.getElementById('root'));
+
+const { SplashScreen } = Plugins;
+SplashScreen.hide();
+
 serviceWorker.unregister();
