@@ -11,6 +11,7 @@
     "@babel/core": "7.9.0",
     "@capacitor/android": "2.4.0",
     "@capacitor/core": "2.4.0",
+    "@capacitor/ios": "2.4.0",
     "@ionic/react": "^5.0.5",
     "@svgr/webpack": "4.3.3",
     "@typescript-eslint/eslint-plugin": "^2.10.0",
