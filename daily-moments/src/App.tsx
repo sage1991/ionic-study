@@ -1,23 +1,30 @@
-import {
-  IonApp,
-  IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-} from '@ionic/react';
-import React from 'react';
+import { IonApp } from '@ionic/react';
+import React, { useState } from 'react';
+import { LoginPage } from './pages/LoginPage';
+import { ApplicationRouter } from './containers/ApplicationRouter';
+import { IonReactRouter } from '@ionic/react-router';
+import { Route, Switch } from 'react-router';
+import { AuthContext } from './context/AuthContext';
+
 
 const App: React.FC = () => {
+  const [ isLoggedIn, setLoggedIn ] = useState<boolean>(false);
+
   return (
     <IonApp>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>My App</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent className="ion-padding">
-        Add some content here…
-      </IonContent>
+      <AuthContext.Provider value={{ loggedIn: isLoggedIn }}>
+        <IonReactRouter>
+          <Switch>
+            <Route path="/" >
+              { 
+                isLoggedIn 
+                ? <ApplicationRouter /> 
+                : <LoginPage onLogin={() => setLoggedIn(true)} /> 
+              }
+            </Route>
+          </Switch>
+        </IonReactRouter>
+      </AuthContext.Provider>
     </IonApp>
   );
 };

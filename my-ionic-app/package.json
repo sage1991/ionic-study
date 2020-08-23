@@ -1,19 +1,17 @@
 {
-  "name": "daily-moments",
-  "version": "0.1.0",
+  "name": "my-ionic-app",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "ionic serve",
     "build": "ionic build",
-    "run:android": "ionic cap run android --livereload --external",
-    "run:ios": "ionic cap run android --livereload --external",
-    "sync:android": "ionic cap sync android",
-    "sync:ios": "ionic cap sync ios",
-    "add:android": "ionic cap add android",
-    "add:ios": "ionic cap add ios"
+    "test": "react-scripts test",
+    "cap-run:android": "ionic cap run android --livereload --external",
+    "cap-run:ios": "ionic cap run ios --livereload --external"
   },
   "dependencies": {
-    "@capacitor/core": "2.1.0",
+    "@capacitor/android": "^2.4.0",
+    "@capacitor/core": "2.4.0",
     "@ionic/react": "^5.0.7",
     "@ionic/react-router": "^5.0.7",
     "ionicons": "^5.0.0",
@@ -23,8 +21,12 @@
     "react-router-dom": "^5.1.2"
   },
   "devDependencies": {
-    "@capacitor/cli": "2.1.0",
-    "@ionic/cli": "6.9.2",
+    "@capacitor/cli": "2.4.0",
+    "@ionic/cli": "^6.11.1",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.4.0",
+    "@testing-library/user-event": "^8.0.3",
+    "@types/jest": "^24.0.25",
     "@types/node": "^12.12.24",
     "@types/react": "^16.9.17",
     "@types/react-dom": "^16.9.4",
@@ -47,5 +49,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "An Ionic project"
 }
