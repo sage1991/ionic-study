@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonButtons, IonBackButton } from "@ionic/react";
 import { entries } from "../data";
+import { withAuth } from "../hoc/WithAuth";
 
 
 const HomePage: FC = () => {
@@ -16,12 +17,12 @@ const HomePage: FC = () => {
       </IonHeader>
       <IonContent className="ion-padding">
         <IonList>
-          { entries.map(entry => <IonItem key={entry.id} button routerLink={`/home/${entry.id}`}>{entry.title}</IonItem>) }
+          { entries.map(entry => <IonItem key={entry.id} button routerLink={`/entry/${entry.id}`}>{entry.title}</IonItem>) }
         </IonList>
       </IonContent>
     </IonPage>
   );
 }
 
-
-export { HomePage };
+const HomePageWithAuth = withAuth(HomePage);
+export { HomePageWithAuth as HomePage };

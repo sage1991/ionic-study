@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton } from "@ionic/react";
+import { withAuth } from "../hoc/WithAuth";
 
 
 const SettingsPage: FC = () => {
@@ -20,4 +21,5 @@ const SettingsPage: FC = () => {
 }
 
 
-export { SettingsPage };
+const SettingsPageWithAuth = withAuth(SettingsPage);
+export { SettingsPageWithAuth as SettingsPage };
