@@ -1,18 +1,18 @@
 import { IonApp } from '@ionic/react';
 import React, { useState } from 'react';
-import { AuthRouter } from './containers/AuthRouter';
 import { AuthContext } from './context/AuthContext';
-import { auth } from './config/Firebase';
-import { LoginRouter } from './containers/LoginRouter';
+import { firebaseAuthAPI } from './config/Firebase';
+import { ApplicationRouter } from './containers/ApplicationRouter';
 
 
 const App: React.FC = () => {
   const [ isLoggedIn, setLoggedIn ] = useState<boolean>(false);
 
-  const login = async () => {
-    const credential = await auth.signInWithEmailAndPassword("harry@ionic.org", "123123");
+  const login = async (callback: () => void) => {
+    const credential = await firebaseAuthAPI.signInWithEmailAndPassword("harry@ionic.org", "123123");
     console.log(credential);
     setLoggedIn(true);
+    callback();
   }
 
   const logout = async () => setLoggedIn(false);
@@ -20,7 +20,7 @@ const App: React.FC = () => {
   return (
     <IonApp>
       <AuthContext.Provider value={{ loggedIn: isLoggedIn, login: login, logout: logout }}>
-        { isLoggedIn ? <AuthRouter /> : <LoginRouter /> }
+        <ApplicationRouter />
       </AuthContext.Provider>
     </IonApp>
   );

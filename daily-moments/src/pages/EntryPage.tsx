@@ -1,15 +1,16 @@
 import React, { FC } from "react";
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton } from "@ionic/react";
-import { useParams } from "react-router";
 import { entries } from "../data";
 import { withAuth } from "../hoc/WithAuth";
+import { useQuery } from "../hooks/UseQuery";
 
 
 const EntryPage: FC = () => {
-  const { id } = useParams<RouteParams>();
   
-  const entry = entries.find(entry => entry.id === +id);
-  if (!entry) throw Error(`no such id: ${id}`);
+  const query = useQuery<EntryPageQuery>();
+
+  const entry = entries.find(entry => entry.id === +query.id);
+  if (!entry) return null;
 
   return (
     <IonPage>
@@ -29,8 +30,8 @@ const EntryPage: FC = () => {
 }
 
 
-interface RouteParams {
-  id: string;
+interface EntryPageQuery {
+  [ id: string ]: string;
 }
 
 
