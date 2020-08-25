@@ -1,8 +1,5 @@
-import { createContext, useContext } from "react";
+import { createContext } from "react";
 
+const AuthContext = createContext({ loggedIn: false, setLogin: (loggedIn: boolean) => {} });
 
-const AuthContext = createContext({ loggedIn: false, login: (a: any) => {}, logout: () => {} });
-const useAuth = () => useContext(AuthContext);
-
-
-export { AuthContext, useAuth };
+export { AuthContext };

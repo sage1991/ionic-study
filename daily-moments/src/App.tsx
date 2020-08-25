@@ -1,29 +1,24 @@
-import { IonApp } from '@ionic/react';
-import React, { useState } from 'react';
+import { IonApp, IonLoading } from '@ionic/react';
+import React, { useState, useEffect } from 'react';
 import { AuthContext } from './context/AuthContext';
 import { firebaseAuthAPI } from './config/Firebase';
 import { ApplicationRouter } from './containers/ApplicationRouter';
+import { useAuthState } from './hooks/UseAuthState';
 
 
 const App: React.FC = () => {
-  const [ isLoggedIn, setLoggedIn ] = useState<boolean>(false);
-
-  const login = async (callback: () => void) => {
-    const credential = await firebaseAuthAPI.signInWithEmailAndPassword("harry@ionic.org", "123123");
-    console.log(credential);
-    setLoggedIn(true);
-    callback();
-  }
-
-  const logout = async () => setLoggedIn(false);
-
+  const { state, setState } = useAuthState();
+  const setLogin = (isLoggedIn: boolean) => setState({ ...state, hasCredential: isLoggedIn });
+  
+  if (state.loading) return <IonLoading isOpen={true} />;
   return (
     <IonApp>
-      <AuthContext.Provider value={{ loggedIn: isLoggedIn, login: login, logout: logout }}>
+      <AuthContext.Provider value={{ loggedIn: state.hasCredential, setLogin: setLogin }}>
         <ApplicationRouter />
       </AuthContext.Provider>
     </IonApp>
   );
 };
+
 
 export default App;

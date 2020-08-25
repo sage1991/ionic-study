@@ -1,11 +1,9 @@
 import React, { FC, useState } from "react";
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonButton, IonList, IonItem, IonLabel, IonInput, IonText, IonLoading } from "@ionic/react";
-import { Redirect, RouteComponentProps } from "react-router";
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonButton, IonList, IonItem, IonInput, IonLabel, IonText, IonLoading } from "@ionic/react";
 import { firebaseAuthAPI } from "../config/Firebase";
-import { useAuth } from "../hooks/UseAuth";
+import { RouteComponentProps } from "react-router";
 
-
-const INITIAL_STATE: LoginPageState = {
+const INITIAL_STATE: RegisterPageState = {
   form: {
     email: "",
     password: ""
@@ -16,17 +14,15 @@ const INITIAL_STATE: LoginPageState = {
   }
 }
 
-const LoginPage: FC<LoginPageProps> = (props) => {
+const RegisterPage: FC<RegisterPageProps> = (props) => {
 
-  const [ state, setState ] = useState<LoginPageState>(INITIAL_STATE);
-  const { loggedIn } = useAuth();
-  
-  const login = async () => {
+  const [ state, setState ] = useState<RegisterPageState>(INITIAL_STATE);
+
+
+  const onRegister = async () => {
     setState({ ...state, status: { ...state.status, loading: true } });
-
     try {
-      const { email, password } = state.form;
-      await firebaseAuthAPI.signInWithEmailAndPassword(email, password);
+      await firebaseAuthAPI.createUserWithEmailAndPassword(state.form.email, state.form.password);
       setState({ ...state, status: { error: false, loading: false } });
     } catch (e) {
       setState({ ...state, status: { loading: false, error: true } });
@@ -38,8 +34,6 @@ const LoginPage: FC<LoginPageProps> = (props) => {
     setState({ ...state, form: { ...state.form, [ name ]: value } });
   }
 
-  if (loggedIn) return <Redirect to="/home" />;
-
   return (
     <IonPage>
       <IonHeader>
@@ -47,7 +41,7 @@ const LoginPage: FC<LoginPageProps> = (props) => {
           <IonButtons slot="start">
             <IonBackButton />
           </IonButtons>
-          <IonTitle>Login</IonTitle>
+          <IonTitle>Register</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
@@ -58,12 +52,12 @@ const LoginPage: FC<LoginPageProps> = (props) => {
           </IonItem>
           <IonItem>
             <IonLabel position="floating">password</IonLabel>
-            <IonInput type="password" name="password" value={state.form.password} onIonChange={onChange}  />
+            <IonInput type="password" name="password" value={state.form.password} onIonChange={onChange} />
           </IonItem>
         </IonList>
-        { state.status.error ? <IonText color="danger">Invalid Credential</IonText> : null }
-        <IonButton expand="block" onClick={login}>Login</IonButton>
-        <IonButton expand="block" fill="clear" onClick={() => props.history.replace("/register")}>don't have an account?</IonButton>
+        { state.status.error ? <IonText color="danger">registeration fail</IonText> : null }
+        <IonButton color="medium" expand="block" onClick={onRegister}>register</IonButton>
+        <IonButton expand="block" fill="clear" onClick={() => props.history.replace("/login")}>login</IonButton>
         <IonLoading isOpen={state.status.loading} />
       </IonContent>
     </IonPage>
@@ -71,8 +65,8 @@ const LoginPage: FC<LoginPageProps> = (props) => {
 }
 
 
-interface LoginPageProps extends RouteComponentProps {}
-interface LoginPageState {
+interface RegisterPageProps extends RouteComponentProps {}
+interface RegisterPageState {
   form: {
     email: string;
     password: string;
@@ -84,4 +78,4 @@ interface LoginPageState {
 }
 
 
-export { LoginPage };
+export { RegisterPage };

@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import css from "./ApplicationRouter.module.css";
 import { IonReactRouter } from "@ionic/react-router";
 import { IonTabs, IonRouterOutlet, IonTabBar, IonTabButton, IonIcon, IonLabel } from "@ionic/react";
 import { Route, Redirect } from "react-router";
@@ -7,12 +8,12 @@ import { EntryPage } from "../pages/EntryPage";
 import { SettingsPage } from "../pages/SettingsPage";
 import { home as HomeIcon, settings as SettingsIcon } from "ionicons/icons";
 import { LoginPage } from "../pages/LoginPage";
-import { useAuth } from "../context/AuthContext";
-import css from "./ApplicationRouter.module.css";
+import { RegisterPage } from "../pages/RegisterPage";
+import { useAuth } from "../hooks/UseAuth";
 
 
 const ApplicationRouter: FC = () => {
-  const { loggedIn, login } = useAuth();
+  const { loggedIn } = useAuth();
   const tabBarVisibility = loggedIn ? css.show : css.hide;
   const redirectPage = loggedIn ? "/home" : "/login";
 
@@ -23,7 +24,8 @@ const ApplicationRouter: FC = () => {
           <Route path="/home" exact component={HomePage} />
           <Route path="/entry" exact component={EntryPage} />
           <Route path="/settings" exact component={SettingsPage} />
-          <Route path="/login" render={(props) => <LoginPage {...props} onLogin={login} />} />
+          <Route path="/login" component={LoginPage} />
+          <Route path="/register" component={RegisterPage} />
           <Redirect to={redirectPage} />
         </IonRouterOutlet>
         <IonTabBar slot="bottom" className={tabBarVisibility}>

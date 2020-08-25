@@ -2,9 +2,11 @@ import React, { FC } from "react";
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonButtons, IonBackButton } from "@ionic/react";
 import { entries } from "../data";
 import { withAuth } from "../hoc/WithAuth";
+import { RouteComponentProps } from "react-router";
 
 
-const HomePage: FC = () => {
+const HomePage: FC<HomePageProps> = (props) => {
+
   return (
     <IonPage>
       <IonHeader>
@@ -22,6 +24,11 @@ const HomePage: FC = () => {
       </IonContent>
     </IonPage>
   );
+}
+
+
+interface HomePageProps extends RouteComponentProps {
+
 }
 
 const HomePageWithAuth = withAuth(HomePage);
