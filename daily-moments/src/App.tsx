@@ -1,19 +1,16 @@
 import { IonApp, IonLoading } from '@ionic/react';
-import React, { useState, useEffect } from 'react';
-import { AuthContext } from './context/AuthContext';
-import { firebaseAuthAPI } from './config/Firebase';
-import { ApplicationRouter } from './containers/ApplicationRouter';
-import { useAuthState } from './hooks/UseAuthState';
+import React from 'react';
+import { AuthContext } from './business/context/AuthContext';
+import { ApplicationRouter } from './view/containers/ApplicationRouter';
+import { useAuthState } from './business/hooks/UseAuthState';
 
 
 const App: React.FC = () => {
-  const { state, setState } = useAuthState();
-  const setLogin = (isLoggedIn: boolean) => setState({ ...state, hasCredential: isLoggedIn });
-  
+  const { state } = useAuthState();
   if (state.loading) return <IonLoading isOpen={true} />;
   return (
     <IonApp>
-      <AuthContext.Provider value={{ loggedIn: state.hasCredential, setLogin: setLogin }}>
+      <AuthContext.Provider value={{ loggedIn: state.hasCredential, userId: state.userId }}>
         <ApplicationRouter />
       </AuthContext.Provider>
     </IonApp>

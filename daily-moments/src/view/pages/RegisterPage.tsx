@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonButton, IonList, IonItem, IonInput, IonLabel, IonText, IonLoading } from "@ionic/react";
-import { firebaseAuthAPI } from "../config/Firebase";
+import { firebaseAuthAPI } from "../../business/firebase/Firebase";
 import { RouteComponentProps } from "react-router";
 
 const INITIAL_STATE: RegisterPageState = {

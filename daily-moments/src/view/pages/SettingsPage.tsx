@@ -1,10 +1,11 @@
 import React, { FC } from "react";
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonButton } from "@ionic/react";
 import { withAuth } from "../hoc/WithAuth";
-import { firebaseAuthAPI } from "../config/Firebase";
+import { firebaseAuthAPI } from "../../business/firebase/Firebase";
+import { RouteComponentProps } from "react-router";
 
 
-const SettingsPage: FC = () => {
+const SettingsPage: FC<SettingsPageProps> = (props) => {
   return (
     <IonPage>
       <IonHeader>
@@ -16,7 +17,10 @@ const SettingsPage: FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
-        <IonButton color="medium" expand="block" onClick={() => firebaseAuthAPI.signOut()}>
+        <IonButton color="medium" expand="block" onClick={() => {
+          firebaseAuthAPI.signOut();
+          props.history.replace("/login");
+        }}>
           Logout
         </IonButton>
       </IonContent>
@@ -24,6 +28,7 @@ const SettingsPage: FC = () => {
   );
 }
 
+interface SettingsPageProps extends RouteComponentProps {}
 
 const SettingsPageWithAuth = withAuth(SettingsPage);
 export { SettingsPageWithAuth as SettingsPage };

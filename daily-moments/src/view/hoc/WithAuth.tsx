@@ -1,5 +1,5 @@
 import React, { ComponentType } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../../business/context/AuthContext";
 import { Redirect } from "react-router";
 
 
