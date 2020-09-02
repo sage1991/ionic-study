@@ -16,7 +16,6 @@ const INITIAL_STATE: LoginPageState = {
 }
 
 const LoginPage: FC<LoginPageProps> = (props) => {
-
   const [ state, setState ] = useState<LoginPageState>(INITIAL_STATE);
   
   const login = async () => {
@@ -26,7 +25,7 @@ const LoginPage: FC<LoginPageProps> = (props) => {
       const { email, password } = state.form;
       await firebaseAuthAPI.signInWithEmailAndPassword(email, password);
       setState({ ...state, status: { error: false, loading: false } });
-      props.history.replace("/");
+      props.history.push("/home");
     } catch (e) {
       setState({ ...state, status: { loading: false, error: true } });
     }

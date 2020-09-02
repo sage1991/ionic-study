@@ -18,7 +18,6 @@ const RegisterPage: FC<RegisterPageProps> = (props) => {
 
   const [ state, setState ] = useState<RegisterPageState>(INITIAL_STATE);
 
-
   const onRegister = async () => {
     setState({ ...state, status: { ...state.status, loading: true } });
     try {

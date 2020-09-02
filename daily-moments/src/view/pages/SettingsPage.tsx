@@ -5,7 +5,7 @@ import { firebaseAuthAPI } from "../../business/firebase/Firebase";
 import { RouteComponentProps } from "react-router";
 
 
-const SettingsPage: FC<SettingsPageProps> = (props) => {
+const SettingsPage: FC<SettingsPageProps> = () => {
   return (
     <IonPage>
       <IonHeader>
@@ -17,10 +17,7 @@ const SettingsPage: FC<SettingsPageProps> = (props) => {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
-        <IonButton color="medium" expand="block" onClick={() => {
-          firebaseAuthAPI.signOut();
-          props.history.replace("/login");
-        }}>
+        <IonButton color="medium" expand="block" onClick={() => firebaseAuthAPI.signOut()}>
           Logout
         </IonButton>
       </IonContent>
