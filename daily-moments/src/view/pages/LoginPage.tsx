@@ -1,7 +1,9 @@
 import React, { FC, useState } from "react";
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonButton, IonList, IonItem, IonLabel, IonInput, IonText, IonLoading } from "@ionic/react";
-import { RouteComponentProps } from "react-router";
+import { RouteComponentProps, Redirect } from "react-router";
 import { firebaseAuthAPI } from "../../business/firebase/Firebase";
+import { useAuth } from "../../business/hooks/UseAuth";
+
 
 
 const INITIAL_STATE: LoginPageState = {
@@ -17,7 +19,8 @@ const INITIAL_STATE: LoginPageState = {
 
 const LoginPage: FC<LoginPageProps> = (props) => {
   const [ state, setState ] = useState<LoginPageState>(INITIAL_STATE);
-  
+  const { loggedIn } = useAuth();
+
   const login = async () => {
     setState({ ...state, status: { ...state.status, loading: true } });
 
@@ -25,7 +28,6 @@ const LoginPage: FC<LoginPageProps> = (props) => {
       const { email, password } = state.form;
       await firebaseAuthAPI.signInWithEmailAndPassword(email, password);
       setState({ ...state, status: { error: false, loading: false } });
-      props.history.push("/home");
     } catch (e) {
       setState({ ...state, status: { loading: false, error: true } });
     }
@@ -35,6 +37,8 @@ const LoginPage: FC<LoginPageProps> = (props) => {
     const { name, value } = e.target as HTMLInputElement;
     setState({ ...state, form: { ...state.form, [ name ]: value } });
   }
+
+  if (loggedIn) return <Redirect to="/home/entry" />;
 
   return (
     <IonPage>
