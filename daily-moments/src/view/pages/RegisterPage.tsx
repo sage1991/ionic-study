@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonButton, IonList, IonItem, IonInput, IonLabel, IonText, IonLoading } from "@ionic/react";
-import { firebaseAuthAPI } from "../../business/firebase/Firebase";
+import { auth } from "../../business/firebase/Firebase";
 import { RouteComponentProps } from "react-router";
 
 const INITIAL_STATE: RegisterPageState = {
@@ -21,7 +21,7 @@ const RegisterPage: FC<RegisterPageProps> = (props) => {
   const onRegister = async () => {
     setState({ ...state, status: { ...state.status, loading: true } });
     try {
-      await firebaseAuthAPI.createUserWithEmailAndPassword(state.form.email, state.form.password);
+      await auth.createUserWithEmailAndPassword(state.form.email, state.form.password);
       setState({ ...state, status: { error: false, loading: false } });
     } catch (e) {
       setState({ ...state, status: { loading: false, error: true } });

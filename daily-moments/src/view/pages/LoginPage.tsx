@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton, IonButton, IonList, IonItem, IonLabel, IonInput, IonText, IonLoading } from "@ionic/react";
 import { RouteComponentProps, Redirect } from "react-router";
-import { firebaseAuthAPI } from "../../business/firebase/Firebase";
+import { auth } from "../../business/firebase/Firebase";
 import { useAuth } from "../../business/hooks/UseAuth";
 
 
@@ -26,7 +26,7 @@ const LoginPage: FC<LoginPageProps> = (props) => {
 
     try {
       const { email, password } = state.form;
-      await firebaseAuthAPI.signInWithEmailAndPassword(email, password);
+      await auth.signInWithEmailAndPassword(email, password);
       setState({ ...state, status: { error: false, loading: false } });
     } catch (e) {
       setState({ ...state, status: { loading: false, error: true } });

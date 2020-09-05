@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { firebaseAuthAPI } from "../firebase/Firebase";
+import { auth } from "../firebase/Firebase";
 
 
 const INITIAL_STATE = {
@@ -11,7 +11,7 @@ const INITIAL_STATE = {
 const useAuthState = () => {
   const [ state, setState ] = useState<AuthState>(INITIAL_STATE);
   useEffect(() => {
-    firebaseAuthAPI.onAuthStateChanged((user) => {
+    auth.onAuthStateChanged((user) => {
       console.log(user, user?.uid, user?.email);
       setState({ loading: false, userId: user ? user.uid : "", hasCredential: user !== null })
     })
