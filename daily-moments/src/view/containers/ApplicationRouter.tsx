@@ -15,7 +15,7 @@ const ApplicationRouter: FC = () => {
     <IonReactRouter>
       <IonSplitPane contentId="page">
         <IonRouterOutlet id="page">
-          <Route path="/login" exact component={LoginPage} />
+          <Route path="/" exact component={LoginPage} />
           <Route path="/register" exact component={RegisterPage} />
           <Route path="/entry/:id" component={EntryDetailPage} />
           <Route path="/entry" exact component={EntryAddPage} />

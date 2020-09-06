@@ -5,7 +5,7 @@ import { Redirect } from "react-router";
 
 const withAuth = <P extends Object> (WrappedComponent: ComponentType<P>) => (props: P) => (
   <AuthContext.Consumer>
-    { ({ loggedIn }) => loggedIn ? <WrappedComponent {...props} /> : <Redirect to="/login" /> }
+    { ({ loggedIn }) => loggedIn ? <WrappedComponent {...props} /> : <Redirect to="/" /> }
   </AuthContext.Consumer>
 );
 

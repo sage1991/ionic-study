@@ -26,7 +26,7 @@ const EntryPage: FC<EntryPageProps> = () => {
           <IonButtons slot="start">
             <IonBackButton />
           </IonButtons>
-          <IonTitle>Home</IonTitle>
+          <IonTitle>Daily Moment</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">

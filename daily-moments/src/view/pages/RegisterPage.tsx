@@ -56,7 +56,7 @@ const RegisterPage: FC<RegisterPageProps> = (props) => {
         </IonList>
         { state.status.error ? <IonText color="danger">registeration fail</IonText> : null }
         <IonButton color="medium" expand="block" onClick={onRegister}>register</IonButton>
-        <IonButton expand="block" fill="clear" onClick={() => props.history.replace("/login")}>login</IonButton>
+        <IonButton expand="block" fill="clear" onClick={() => props.history.replace("/")}>login</IonButton>
         <IonLoading isOpen={state.status.loading} />
       </IonContent>
     </IonPage>

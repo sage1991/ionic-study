@@ -4,12 +4,14 @@ import {
   IonTitle, IonContent, IonButtons, 
   IonBackButton, IonList, IonItem, 
   IonLabel, IonInput, IonTextarea, 
-  IonButton, IonDatetime, IonImg 
+  IonButton, IonDatetime, IonImg, isPlatform 
 } from "@ionic/react";
 import { withAuth } from "../hoc/WithAuth";
 import { RouteComponentProps } from "react-router";
 import { firestore, storage } from "../../business/firebase/Firebase";
 import { useAuth } from "../../business/hooks/UseAuth";
+import { Plugins, CameraResultType, CameraSource } from "@capacitor/core";
+
 
 const INIT_STATE = {
   title: "",
@@ -36,13 +38,13 @@ const EntryAddPage: FC<EntryAddPageProps> = (props) => {
   }, [ state.image ]);
 
 
+
   const saveEntry = async () => {
     const firestoreEntries = firestore.collection("users").doc(userId).collection("entries");
     const entry = { ...state };
-    if (entry.image.indexOf("blob") !== -1) {
-      entry.image = await saveImage(userId, entry.image);
-    }
-    const entryRef = await firestoreEntries.add(entry);
+    
+    if (entry.image !== INIT_STATE.image) entry.image = await saveImage(userId, entry.image);
+    await firestoreEntries.add(entry);
     props.history.goBack();
   }
 
@@ -52,6 +54,23 @@ const EntryAddPage: FC<EntryAddPageProps> = (props) => {
     const file = files[0];
     const picture = URL.createObjectURL(file);
     setState({ ...state, image: picture });
+  }
+
+  const onPictureClick = async () => {
+    if (!isPlatform("capacitor")) return fileInputRef.current?.click();
+    
+    try {
+      const { Camera } = Plugins;
+      const photo = await Camera.getPhoto({
+        resultType: CameraResultType.Uri,
+        source: CameraSource.Prompt,
+        width: 600,
+        height: 600
+      });
+      setState({ ...state, image: photo.webPath! });
+    } catch (e) {
+      console.log("error: ", e);
+    }
   }
 
   return (
@@ -81,18 +100,18 @@ const EntryAddPage: FC<EntryAddPageProps> = (props) => {
               value={state.title} 
               onIonChange={e => setState({ ...state, title: e.detail.value! })} />
           </IonItem>
+          <IonItem button>
+            <IonLabel position="floating">picture</IonLabel>
+            <br/><br/>
+            <input ref={fileInputRef} hidden type="file" accept="image/*" onChange={onFileChange} />
+            <IonImg src={state.image} alt="file image" onClick={onPictureClick} />
+          </IonItem>
           <IonItem>
             <IonLabel position="floating">description</IonLabel>
             <IonTextarea 
               name="description"
               value={state.description} 
               onIonChange={e => setState({ ...state, description: e.detail.value! })} />
-          </IonItem>
-          <IonItem button>
-            <IonLabel position="floating">picture</IonLabel>
-            <br/><br/>
-            <input ref={fileInputRef} hidden type="file" accept="image/*" onChange={onFileChange} />
-            <IonImg src={state.image} alt="file image" onClick={() => { fileInputRef.current?.click(); }} />
           </IonItem>
           <IonButton expand="block" onClick={saveEntry}>save</IonButton>
         </IonList>
